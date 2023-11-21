@@ -16,5 +16,7 @@ public interface ITasksService
   System.Threading.Tasks.Task DeleteTask(int taskId);
   Task<ProjectModel> AppendNewPhaseToProject(int projectId, int phaseId);
   Task<ProjectModel> InsertAfterProjectPhase(int projectPhaseId, int phaseId);
+  Task<ProjectModel> InsertBeforeProjectPhase(int projectPhaseId, int phaseId);
+  Task<ProjectModel> DeleteProjectPhase(int projectPhaseId, string username);
 
 }

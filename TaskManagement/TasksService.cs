@@ -249,6 +249,10 @@ public class TasksService : ITasksService
   {
     Task? task = await _dbContext.Tasks.SingleOrDefaultAsync(t => t.Id == taskId) ?? throw new Exception("Task not found");
 
+    // We'll need to round up the Task dependencies
+    List<TaskDependency> taskDependenciesToDelete = await _dbContext.TaskDependencies.Where(td => td.DependentTaskId == taskId || td.DependencyTaskId == taskId).ToListAsync();
+
+    _dbContext.TaskDependencies.RemoveRange(taskDependenciesToDelete);
     _dbContext.Tasks.Remove(task);
     await _dbContext.SaveChangesAsync();
   }
@@ -295,6 +299,78 @@ public class TasksService : ITasksService
       await ResolvePhaseToProject(phaseId, projectPhase.ProjectId, orderInSequence);
       orderInSequence++;
     }
+
+    return await GetProject(projectPhase.ProjectId);
+  }
+
+  public async Task<ProjectModel> InsertBeforeProjectPhase(int projectPhaseId, int phaseId)
+  {
+    ProjectPhase? projectPhase = await _dbContext.ProjectPhases.SingleOrDefaultAsync(pph => pph.Id == projectPhaseId) ?? throw new Exception("Project Phase not found");
+
+    List<ProjectPhase> projectPhasesToShift = await _dbContext.ProjectPhases.Where(pph => pph.ProjectId == projectPhase.ProjectId && pph.OrderInSequence >= projectPhase.OrderInSequence).OrderBy(pph => pph.OrderInSequence).ToListAsync();
+
+    int orderInSequence = (projectPhase.OrderInSequence ?? 1);
+
+    projectPhase = new()
+    {
+      ProjectId = projectPhase.ProjectId,
+      PhaseId = phaseId,
+      OrderInSequence = orderInSequence
+    };
+
+    orderInSequence++;
+
+    foreach (var projectPhaseToShift in projectPhasesToShift)
+    {
+      await ResolvePhaseToProject(phaseId, projectPhase.ProjectId, orderInSequence);
+      orderInSequence++;
+    }
+
+    return await GetProject(projectPhase.ProjectId);
+  }
+
+  private async Task<Phase> ResolveUnassignedPhase()
+  {
+    Phase? unassignedPhase = await _dbContext.Phases.SingleOrDefaultAsync(p => p.Name == "Unassigned");
+
+    if (unassignedPhase == null)
+    {
+      unassignedPhase = new()
+      {
+        Name = "Unassigned"
+      };
+
+      _dbContext.Phases.Add(unassignedPhase);
+      await _dbContext.SaveChangesAsync();
+    }
+
+    return unassignedPhase;
+  }
+
+  public async Task<ProjectModel> DeleteProjectPhase(int projectPhaseId, string username)
+  {
+    ProjectPhase? projectPhase = await _dbContext.ProjectPhases.SingleOrDefaultAsync(pph => pph.Id == projectPhaseId) ?? throw new Exception("Project Phase not found");
+    ProjectPhase? unassignedProjectPhase = await _dbContext.ProjectPhases.Include(pph => pph.Phase).SingleOrDefaultAsync(pph => pph.Phase.Name == "Unassigned");
+
+    if (unassignedProjectPhase == null)
+    {
+      unassignedProjectPhase = new ProjectPhase
+      {
+        ProjectId = projectPhase.ProjectId,
+        PhaseId = ResolveUnassignedPhase().Id
+      };
+
+      _dbContext.ProjectPhases.Add(unassignedProjectPhase);
+      await _dbContext.SaveChangesAsync();
+    }
+
+    List<Task> tasksOfProjectPhaseToDelete = await _dbContext.Tasks.Where(t => t.ProjectPhaseId == projectPhaseId).ToListAsync();
+    foreach(var taskIdToMoveToUnassigned in tasksOfProjectPhaseToDelete)
+    {
+      taskIdToMoveToUnassigned.ProjectPhaseId = unassignedProjectPhase.Id;
+    }
+
+    await _dbContext.SaveChangesAsync();
 
     return await GetProject(projectPhase.ProjectId);
   }
