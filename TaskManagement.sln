@@ -10,6 +10,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Docs", "Docs", "{F6F5F1E8-0
 		CREATE and POPULATE.sql = CREATE and POPULATE.sql
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TaskManagement.WebApp.Server", "TaskManagement.WebApp\TaskManagement.WebApp.Server\TaskManagement.WebApp.Server.csproj", "{5DB3FD54-B322-4FF6-835E-278CBB4B0A31}"
+EndProject
+Project("{54A90642-561A-4BB1-A94E-469ADEE60C69}") = "taskmanagement.webapp.client", "TaskManagement.WebApp\taskmanagement.webapp.client\taskmanagement.webapp.client.esproj", "{6DDEB7AC-C8B6-4CCD-86A7-76A7619B2AE9}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -20,6 +24,16 @@ Global
 		{E18ED973-81C8-42A9-BB7B-A6BE40F68507}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E18ED973-81C8-42A9-BB7B-A6BE40F68507}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E18ED973-81C8-42A9-BB7B-A6BE40F68507}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5DB3FD54-B322-4FF6-835E-278CBB4B0A31}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5DB3FD54-B322-4FF6-835E-278CBB4B0A31}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5DB3FD54-B322-4FF6-835E-278CBB4B0A31}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5DB3FD54-B322-4FF6-835E-278CBB4B0A31}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6DDEB7AC-C8B6-4CCD-86A7-76A7619B2AE9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6DDEB7AC-C8B6-4CCD-86A7-76A7619B2AE9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6DDEB7AC-C8B6-4CCD-86A7-76A7619B2AE9}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{6DDEB7AC-C8B6-4CCD-86A7-76A7619B2AE9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6DDEB7AC-C8B6-4CCD-86A7-76A7619B2AE9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6DDEB7AC-C8B6-4CCD-86A7-76A7619B2AE9}.Release|Any CPU.Deploy.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
