@@ -1,0 +1,35 @@
+@if (isUpdateMode) {
+  <ng-container [formGroup]="saveTaskForm">
+    <td class="update-mode">
+      <textarea name="name" formControlName="name" [class.error]="saveTaskForm.controls['name'].errors"></textarea>
+    </td>
+    <td class="update-mode">
+      <select name="progression" formControlName="progression">
+        <option ngValue="">Conceived</option>
+        @for(progression of progressions; track progression.id) {
+          <option [ngValue]="progression.id">{{progression.name}}</option>
+        }
+      </select>
+    </td>
+    <td class="update-mode">
+      <textarea name="description" formControlName="description"></textarea>
+    </td>
+    <td class="update-mode">
+      <input name="priority" formControlName="priority">
+    </td>
+    <td class="update-mode">
+      <button type="button" (click)="cancel()">Cancel</button>
+      <button type="button" (click)="save()">Save</button>
+    </td>
+  </ng-container>
+} @else {
+  <td>{{taskListItem.name}}</td>
+  <td class="priority" [ngClass]="getNgClassFromProgression()">
+  </td>
+  <td>{{taskListItem.description}}</td>
+  <td>{{taskListItem.priority}}</td>
+  <td class="actions">
+    <button type="button" (click)="goIntoUpdateMode()">Update</button>
+  </td>
+}
+

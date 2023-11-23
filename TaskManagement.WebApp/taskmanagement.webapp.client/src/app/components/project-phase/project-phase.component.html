@@ -1,0 +1,28 @@
+@if (projectPhase != null) {
+  <h3>{{projectPhase.name}}</h3>
+  <div class="actions">
+    <button type="button" (click)="addNewTask()">Add Task</button>
+  </div>
+
+  @if(projectPhase.tasks.length == 0) {
+    <div>There are no tasks in this phase.</div>
+  } @else {
+    <table class="tasks-table">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Progression</th>
+          <th>Description</th>
+          <th>Priority</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        @for (task of projectPhase.tasks; track task.id) {
+          <tr task-row [task-list-item]="task" [progressions]="progressions"></tr>
+        }
+      </tbody>
+
+  </table>
+  }
+}

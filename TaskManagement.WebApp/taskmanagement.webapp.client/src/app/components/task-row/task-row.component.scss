@@ -1,0 +1,29 @@
+.priority {
+  &.started {
+    background-color: #ffcb15;
+  }
+
+  &.in-progress {
+    background-color: #00dbdb;
+  }
+
+  &.completed {
+    background-color: #00ce35;
+  }
+}
+
+
+.update-mode {
+  min-height: 100px;
+  vertical-align: top;
+
+  text-align: left;
+  padding: 0;
+  vertical-align: top;
+
+  input, textarea, select {
+    padding: 1em;
+    width: 100% !important;
+    height: 100% !important;
+  }
+}

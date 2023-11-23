@@ -1,21 +1,27 @@
 import { Component, OnInit } from '@angular/core';
 import { TasksService } from '../../services/tasks.service';
-import { ProjectListItem, ProjectModel, SaveProjectModel } from '../../models/tasks-core';
+import { Progression, ProjectListItem, ProjectModel, SaveProjectModel } from '../../models/tasks-core';
 import { SaveProjectUiComponent } from '../../components/save-project-ui/save-project-ui.component';
 import { CommonModule } from '@angular/common';
+import { ProjectPhaseComponent } from '../../components/project-phase/project-phase.component';
 
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss',
   standalone: true,
-  imports: [CommonModule, SaveProjectUiComponent]
+  imports: [
+    CommonModule,
+    SaveProjectUiComponent,
+    ProjectPhaseComponent
+  ]
 })
 export class HomeComponent implements OnInit {
 
 
 
   projects?: Array<ProjectListItem>
+  progressions? : Array<Progression>
 
   newProject?: SaveProjectModel | null
   projectBeingEdited?: ProjectModel | null
@@ -28,6 +34,7 @@ export class HomeComponent implements OnInit {
   async ngOnInit() {
     try {
       this.projects = await this.tasksService.getProjects()
+      this.progressions = await this.tasksService.getProgressions()
     } catch {
       // later
     }

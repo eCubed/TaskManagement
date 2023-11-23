@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { ProjectListItem, ProjectModel, SaveProjectModel } from '../models/tasks-core';
+import { Progression, ProjectListItem, ProjectModel, SaveProjectModel } from '../models/tasks-core';
 import { firstValueFrom } from 'rxjs'
 
 @Injectable({
@@ -9,6 +9,10 @@ import { firstValueFrom } from 'rxjs'
 export class TasksService {
 
   constructor(private http: HttpClient) { }
+
+  async getProgressions(): Promise<Array<Progression>> {
+    return firstValueFrom(this.http.get<Array<Progression>>('/api/progressions'))
+  }
 
   async getProjects(): Promise<Array<ProjectListItem>> {
     return firstValueFrom(this.http.get<Array<ProjectListItem>>('/api/projects'))

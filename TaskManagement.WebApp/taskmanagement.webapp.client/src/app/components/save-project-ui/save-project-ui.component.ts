@@ -1,6 +1,6 @@
 import { Component, Input, Output, OnChanges, SimpleChanges, EventEmitter } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ProjectModel, SaveProjectModel } from '../../models/tasks-core';
+import { Progression, ProjectModel, SaveProjectModel } from '../../models/tasks-core';
 import { TasksService } from '../../services/tasks.service';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 
@@ -14,6 +14,7 @@ import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angula
 export class SaveProjectUiComponent implements OnChanges {
   @Input('project-id') projectId?: number
   @Input() project?: SaveProjectModel
+  @Input() progressions!: Array<Progression>
   @Output() projectSaved: EventEmitter<ProjectModel> = new EventEmitter<ProjectModel>()
   @Output() cancelled: EventEmitter<null> = new EventEmitter<null>();
 

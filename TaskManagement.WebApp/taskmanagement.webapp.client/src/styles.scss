@@ -17,4 +17,15 @@
     gap: 0;
 
   }
+
+  input.error {
+    border: solid 1px #990000;
+  }
+}
+
+.actions {
+  display: flex;
+  flex-direction: row;
+  gap: 1em;
+  justify-content: end;
 }

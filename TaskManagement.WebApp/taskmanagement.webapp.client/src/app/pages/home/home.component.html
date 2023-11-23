@@ -12,8 +12,10 @@
   <div>
     <button type="button" (click)="createProject()">Create Project</button>
   </div>
-  @if(newProject != null) {
-    <app-save-project-ui [project-id]="0" [project]="newProject"
+  @if(newProject != null && progressions != null) {
+    <app-save-project-ui
+      [project-id]="0"
+      [project]="newProject"
       (projectSaved)="onProjectSaved($event)"
       (cancelled)="onCancelled()"></app-save-project-ui>
   }
@@ -21,7 +23,14 @@
 </aside>
 
 <div class="main">
-  @if(projectBeingEdited != null) {
-    <pre>{{ projectBeingEdited | json }}</pre>
+  @if(projectBeingEdited != null && progressions != null) {
+    <div class="project-phases-container">
+      @for (projectPhase of projectBeingEdited.projectPhases; track projectPhase.id) {
+        <app-project-phase
+          [project-phase]="projectPhase"
+          [progressions]="progressions">
+        </app-project-phase>
+      }
+    </div>
   }
 </div>
