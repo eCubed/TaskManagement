@@ -1,0 +1,19 @@
+<div class="basic-form" [formGroup]="projectForm">
+  <div>
+    <label>Name</label>
+    <input name="name" formControlName="name">
+    @if(projectForm.controls['name'].hasError('required')) {
+      <div class="error">
+        Name is required
+      </div>
+    }
+  </div>
+  <div>
+    <label>Description</label>
+    <textarea name="description" formControlName="description" rows="5"></textarea>
+  </div>
+  <div class="actions">
+    <button type="button" (click)="cancel()">Cancel</button>
+    <button type="button" (click)="save()" [disabled]="!projectForm.valid">Save</button>
+  </div>
+</div>

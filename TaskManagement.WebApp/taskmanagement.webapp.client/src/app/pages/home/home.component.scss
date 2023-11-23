@@ -1,0 +1,14 @@
+:host {
+  display: flex;
+  flex-direction: row;
+  gap: 2em;
+
+  aside {
+    flex: 0 1 300px;
+    background-color: #eeeeee;
+  }
+
+  div.main {
+    flex: 1;
+  }
+}

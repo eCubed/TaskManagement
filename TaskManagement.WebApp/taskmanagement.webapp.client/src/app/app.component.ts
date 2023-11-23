@@ -1,5 +1,8 @@
-import { HttpClient } from '@angular/common/http';
+import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
+import { RouterOutlet } from '@angular/router';
+import { MainNavComponent } from "./components/main-nav/main-nav.component";
+import { HttpClient } from '@angular/common/http';
 
 interface WeatherForecast {
   date: string;
@@ -9,28 +12,30 @@ interface WeatherForecast {
 }
 
 @Component({
-  selector: 'app-root',
-  templateUrl: './app.component.html',
-  styleUrl: './app.component.css'
+    selector: 'app-root',
+    templateUrl: './app.component.html',
+    styleUrl: './app.component.css',
+    standalone: true,
+    imports: [CommonModule, RouterOutlet, MainNavComponent]
 })
 export class AppComponent implements OnInit {
-  public forecasts: WeatherForecast[] = [];
-
   constructor(private http: HttpClient) {}
 
-  ngOnInit() {
-    this.getForecasts();
+  ngOnInit(){
+    this.getForecasts()
   }
 
+
   getForecasts() {
-    this.http.get<WeatherForecast[]>('/weatherforecast').subscribe(
-      (result) => {
-        this.forecasts = result;
+    this.http.get<WeatherForecast[]>('api/weatherforecast').subscribe({
+      next: (result: any) => {
+
       },
-      (error) => {
-        console.error(error);
+      error: (error: any) => {
+
       }
-    );
+    });
+
   }
 
   title = 'taskmanagement.webapp.client';

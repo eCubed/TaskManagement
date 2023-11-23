@@ -1,0 +1,27 @@
+<aside>
+  <h1>Projects</h1>
+  @if (projects && projects.length == 0) {
+    <div>There are no projects yet</div>
+  } @else {
+    @for (project of projects; track project.id) {
+      <div (click)="loadProject(project.id)">
+        {{ project.name }}
+      </div>
+    }
+  }
+  <div>
+    <button type="button" (click)="createProject()">Create Project</button>
+  </div>
+  @if(newProject != null) {
+    <app-save-project-ui [project-id]="0" [project]="newProject"
+      (projectSaved)="onProjectSaved($event)"
+      (cancelled)="onCancelled()"></app-save-project-ui>
+  }
+
+</aside>
+
+<div class="main">
+  @if(projectBeingEdited != null) {
+    <pre>{{ projectBeingEdited | json }}</pre>
+  }
+</div>
