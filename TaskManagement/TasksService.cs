@@ -106,12 +106,14 @@ public class TasksService : ITasksService
           [
             .. _dbContext.Tasks.Include(t => t.Progression).Where(t => t.ProjectPhaseId == pph.Id).Select(t => new TaskListItem
                 {
+                  Id = t.Id,
                   CreatedBy = t.CreatedBy,
                   Description = t.Description,
                   LastUpdatedBy = t.LastUpdatedBy,
                   Name = t.Name,
                   ProgressionId = t.ProgressionId,
-                  ProgressionName = (t.Progression == null) ? "" : t.Progression.Name
+                  ProgressionName = (t.Progression == null) ? "" : t.Progression.Name,
+                  Priority = t.Priority
                 }),
           ]
         };
@@ -221,6 +223,7 @@ public class TasksService : ITasksService
     task.DueDate = saveTaskModel.DueDate;
     task.Description = saveTaskModel.Description;
     task.LastUpdatedBy = username;
+    task.Name = saveTaskModel.Name;
     task.Priority = saveTaskModel.Priority;
     task.ProgressionId = saveTaskModel.ProgressionId;
 

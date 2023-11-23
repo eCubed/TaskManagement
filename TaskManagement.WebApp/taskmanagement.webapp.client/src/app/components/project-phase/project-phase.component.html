@@ -19,7 +19,10 @@
       </thead>
       <tbody>
         @for (task of projectPhase.tasks; track task.id) {
-          <tr task-row [task-list-item]="task" [progressions]="progressions"></tr>
+          <tr task-row
+            [task-list-item]="task"
+            [project-phase-id]="projectPhase.id"
+            [progressions]="progressions"></tr>
         }
       </tbody>
 
