@@ -1,23 +1,24 @@
 @if (isUpdateMode && saveTaskForm != null) {
   <ng-container [formGroup]="saveTaskForm">
-    <td class="update-mode">
+    <td class="update-mode name">
       <textarea name="name" formControlName="name" [class.error]="saveTaskForm.controls['name'].errors"></textarea>
     </td>
     <td class="update-mode">
-      <select name="progression" formControlName="progressionId">
+      <select name="progressionId" formControlName="progressionId">
         <option [ngValue]="null">Conceived</option>
-
         @for(progression of progressions; track progression.id) {
           <option [ngValue]="progression.id">{{progression.name}}</option>
         }
-        <!--<option *ngFor="let progression of progressions" [ngValue]="progression.id">{{progression.name}}</option>-->
+        <!--
+        <option *ngFor="let progression of progressions" [ngValue]="progression.id">{{progression.name}}</option>
+        -->
       </select>
     </td>
-    <td class="update-mode">
+    <td class="update-mode description">
       <textarea name="description" formControlName="description"></textarea>
     </td>
     <td class="update-mode">
-      <input name="priority" formControlName="priority">
+      <textarea name="priority" formControlName="priority"></textarea>
     </td>
     <td class="update-mode">
       <div class="actions">
@@ -27,10 +28,10 @@
     </td>
   </ng-container>
 } @else {
-  <td>{{taskListItem.name}}</td>
+  <td class="name">{{taskListItem.name}}</td>
   <td class="priority" [ngClass]="getNgClassFromProgression()">
   </td>
-  <td>{{taskListItem.description}}</td>
+  <td class="description">{{taskListItem.description}}</td>
   <td>{{taskListItem.priority}}</td>
   <td>
     <div class="actions">

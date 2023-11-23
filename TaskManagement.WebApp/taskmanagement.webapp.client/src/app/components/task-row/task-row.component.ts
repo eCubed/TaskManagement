@@ -32,6 +32,7 @@ export class TaskRowComponent implements OnChanges {
   ngOnChanges(changes: SimpleChanges): void {
     if(changes['taskListItem'] && changes['taskListItem'].currentValue != null &&
        changes['progressions'] && changes['progressions'].currentValue != null) {
+        
       this.saveTaskForm = new FormGroup({
         name: new FormControl(this.taskListItem.name, [Validators.required]),
         progressionId: new FormControl(this.taskListItem.progressionId),
