@@ -6,12 +6,11 @@
     <td class="update-mode">
       <select name="progression" formControlName="progressionId">
         <option [ngValue]="null">Conceived</option>
-        <!--
+
         @for(progression of progressions; track progression.id) {
           <option [ngValue]="progression.id">{{progression.name}}</option>
         }
-        -->
-        <option *ngFor="let progression of progressions" [ngValue]="progression.id">{{progression.name}}</option>
+        <!--<option *ngFor="let progression of progressions" [ngValue]="progression.id">{{progression.name}}</option>-->
       </select>
     </td>
     <td class="update-mode">
@@ -21,8 +20,10 @@
       <input name="priority" formControlName="priority">
     </td>
     <td class="update-mode">
-      <button type="button" (click)="cancel()">Cancel</button>
-      <button type="button" (click)="save()">Save</button>
+      <div class="actions">
+        <button type="button" (click)="cancel()">Cancel</button>
+        <button type="button" (click)="save()">Save</button>
+      </div>
     </td>
   </ng-container>
 } @else {
@@ -31,8 +32,10 @@
   </td>
   <td>{{taskListItem.description}}</td>
   <td>{{taskListItem.priority}}</td>
-  <td class="actions">
-    <button type="button" (click)="goIntoUpdateMode()">Update</button>
+  <td>
+    <div class="actions">
+      <button type="button" (click)="goIntoUpdateMode()">Update</button>
+    </div>
   </td>
 }
 

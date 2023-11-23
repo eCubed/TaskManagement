@@ -12,22 +12,27 @@
   }
 }
 
+
 td {
   padding: 0.5em;
   vertical-align: top;
+  border: solid 1px gray;
 }
 
-.update-mode {
-  min-height: 100px;
-  vertical-align: top;
 
-  text-align: left;
+td.update-mode {
+  min-height: 90px;
   padding: 0;
-  vertical-align: top;
+
+  .actions {
+    padding: 0.5em;
+  }
 
   input, textarea, select {
+    border: none;
     padding: 0.5em;
     width: 100% !important;
     height: 100% !important;
   }
+
 }

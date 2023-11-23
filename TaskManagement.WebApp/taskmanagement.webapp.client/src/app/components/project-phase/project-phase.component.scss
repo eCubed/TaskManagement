@@ -1,7 +1,11 @@
-.tasks-table {
+table.tasks-table {
+  border-collapse: collapse;
+  
   th {
-    padding: 1em;
+    padding: 0.5em;
     text-align: left;
+    background-color: #cccccc;
+    border: solid 1px gray;
   }
 
 }
